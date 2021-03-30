@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
     Rigidbody2D rB2D;
 
-    public GameObject spawnPoint;
+    //public GameObject spawnPoint;
     public float runSpeed;
     public float jumpForce;
     public SpriteRenderer spriteRenderer;
@@ -15,13 +16,12 @@ public class PlayerMovement : MonoBehaviour
     public int score;
     public TextMeshProUGUI countText;
 
-    private Vector2 respawn;
+    //private Vector2 respawn;
     
-
     // Start is called before the first frame update
     void Start()
     {
-        Vector2 respawn = new Vector2(spawnPoint.transform.position.x, spawnPoint.transform.position.y);
+        //Vector2 respawn = new Vector2(spawnPoint.transform.position.x, spawnPoint.transform.position.y);
         rB2D = GetComponent<Rigidbody2D>();
         score = 0;
     }
@@ -87,9 +87,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (other.gameObject.CompareTag("Death"))
         {
-            transform.position = respawn;
+            /*transform.position = respawn;
             score = 0;
-            SetCountText();
+            SetCountText();*/
+
+            SceneManager.LoadScene("SampleScene");
         }
     }
 }
