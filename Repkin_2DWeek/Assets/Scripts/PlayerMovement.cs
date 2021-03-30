@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -10,11 +11,14 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce;
     public SpriteRenderer spriteRenderer;
     public Animator animator;
+    public int score;
+    public TextMeshProUGUI countText;
 
     // Start is called before the first frame update
     void Start()
     {
         rB2D = GetComponent<Rigidbody2D>();
+        score = 0;
     }
 
     // Update is called once per frame
@@ -31,7 +35,12 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    void SetCountText()
+    {
+        countText.text = "score: " + score.ToString();
+    }
+
+        void FixedUpdate()
     {
         //Run left and right
         float horizontalInput = Input.GetAxis("Horizontal");
@@ -59,5 +68,16 @@ public class PlayerMovement : MonoBehaviour
     void Jump()
     {
         rB2D.velocity = new Vector2(rB2D.velocity.x, jumpForce);
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Coin"))
+        {
+            score += 50;
+            SetCountText();
+
+            Destroy(other.gameObject);
+        }
     }
 }
